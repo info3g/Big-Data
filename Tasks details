@@ -1,0 +1,116 @@
+HIVE PROJECT 
+
+PROJECT DESCRIPTION
+
+The project aims to display Beverages-to-Multiple Branches of one Coffee Shop (many-to-many relation) using Hive. In other words, each Beverage might be available on many
+
+Branches, and each Branch of the Coffee shop might distribute many Beverages.
+
+Assuming each branch send their sales report as a csv file. The project aims to stage them to HDFS and further analysis to be performed using Hive for the given problem statement below.
+
+The description of the data is as below
+Beverages Name does not have spaces.
+Coffee shop Branches have mentioned as Branch1, Branch2 and etc.
+
+Beverages can be ordered many times, with different counts
+A Beverage and Branch combination might appear multiple times
+Beverages could be available on multiple Branches
+
+The output should have no commas or punctuation, only 1 space between the
+Beverages and Count of Consumed people.
+
+
+INPUT FILES
+
+PROBLEM STATEMENT
+
+What is the total number of consumers for Branch1?
+
+What is the number of consumers for the Branch2?
+What is the most consumed beverage on Branch1?
+What are the beverages available on Branch10, Branch8, and Branch1?
+
+ENVIRONMENT SETUP
+
+Software Specification
+VM Used – centos-6.3-i386-server
+
+Hadoop version – Hadoop 2.0.0 –cdh4.7.1
+
+Hive version – Hive version 0.8.0
+
+WinSCP – version 5.9.4
+
+HIVE PROJECT 
+
+PROJECT MODULES
+
+1.Placing the given dataset in HDFS
+1.1.Create directory in HDFS
+1.2.Placing the input files in the HDFS directory
+
+2.Implementation in HIVE
+
+2.1.Creating HIVE DB
+2.2.Creating & Loading the HIVE tables with the given datasets
+3.Problem Scenario 1 - What is the total number of consumers for Branch1?
+
+3.1.Type 1 - Creating single physical table with sub queries
+
+3.2.Type 2 - Creating multiple physical tables
+3.3.Solution
+4.Problem Scenario 2 – What is the number of consumers for the Branch2?
+
+4.1.Type 1 - Sub queries selection without table creation
+4.2.Type 2 - Creating multiple physical tables
+
+4.3.Solution
+
+5.Problem Scenario 3 - What is the most consumed beverage on Branch1?
+5.1.Explanation
+
+5.2.Solution
+6.Problem Scenario 4 - What are the beverages available on Branch10, Branch8, and
+
+Branch1?
+6.1.Explanation
+
+6.2.Solution
+
+HIVE PROJECT
+
+Placing the given dataset in HDFS
+
+Create directory in HDFS
+
+Step 1: Before creating directories in HDFS, ensure all the daemons in hadoop are started.
+The below code is for creating directory called “projinput” as follows,
+
+$ hadoop fs -mkdir /user/hive/projinput
+
+Placing the input files in the HDFS directory
+
+Step 1: Copying all the given dataset files from local to HDFS directory in a separate directory. The code as follows,
+
+$ hadoop fs -copyFromLocal Bev_BranchA.txt /user/hive/projinput/Bev_BranchA.txt $ hadoop fs -copyFromLocal Bev_BranchB.txt /user/hive/projinput/Bev_BranchB.txt $ hadoop fs -copyFromLocal Bev_BranchC.txt /user/hive/projinput/Bev_BranchC.txt
+
+$ hadoop fs -copyFromLocal Bev_ConscountA.txt /user/hive/projinput/Bev_ConscountA.txt $ hadoop fs -copyFromLocal Bev_ConscountB.txt /user/hive/projinput/Bev_ConscountB.txt $ hadoop fs -copyFromLocal Bev_ConscountC.txt /user/hive/projinput/Bev_ConscountC.txt
+
+
+Step 2: After the Step 1, check whether the files got placed in the HDFS in browser.
+
+
+Implementation in HIVE
+
+Creating HIVE DB
+
+Step 1: Create a database in the name “hadoophiveproj” in HIVE. The code as follows,
+
+Hive> create database if not exits hadoophiveproj with dbproperties(‘creator’=’Haripriya’,’date’=’15/10/2017’);
+
+Creating & Loading the HIVE tables with the given datasets
+
+Step 1: Create separate raw tables for the Beverages-Counsumercount different datasets each in “hadoophiveproj” database. The given file (Bev_Conscount *.txt) consist of
+<Beverages, Consumercount> (A Beverage and the number of consumers).
+
+Example Bev_Conscount*.txt:
